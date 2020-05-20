@@ -1,13 +1,13 @@
-import personService from '../services/Persons';
+import taskService from '../services/Tasks';
 import { createHTTPErrAction } from './errorReducer';
 
 /**
  * Reducer
  */
-const personsReducer = (state = [], action) => {
+const taskReducer = (state = [], action) => {
     console.log('Action:', action);
     switch(action.type) {
-        case 'P_SET':
+        case 'T_SET':
             return action.data;
         default:
             return state;
@@ -19,17 +19,17 @@ const personsReducer = (state = [], action) => {
  */
 const set_action = (people) => {
     return {
-        type: 'P_SET',
+        type: 'T_SET',
         data: people
     }
 }
 
 export const fetchPStore = () => {
     return (dispatch) => {
-        personService.getAll()
+        taskService.getAll()
             .then( response => dispatch(set_action(response)))
             .catch( err => dispatch(createHTTPErrAction(err)));
     }
 }
 
-export default personsReducer;
+export default taskReducer;

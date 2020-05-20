@@ -1,9 +1,9 @@
 
-import personService from '../services/Persons';
+import taskService from '../services/Tasks';
 import store from '../reducers/store'
 import { createErrAction } from '../reducers/errorReducer';
 import { createNotif } from '../reducers/notifReducer';
-import { fetchPStore } from '../reducers/personReducer';
+import { fetchPStore } from '../reducers/taskReducer';
 
 /**
  * Event Handlers
@@ -15,7 +15,7 @@ export const publishPerson = async (nPerson) => {
         store.dispatch(createErrAction(`${nPerson.title} is already added.`));
     } else {    // add new record
         try{
-            const r = await personService.create(nPerson);
+            const r = await taskService.create(nPerson);
             store.dispatch(fetchPStore());
             store.dispatch(createNotif(`${r.title} has been added`));
         } catch (err) {
@@ -36,7 +36,7 @@ export const deletePerson = async (id) => {
     if(result) {
         console.log('Deleting: ', id, person.title);
         try {
-            await personService.remove(id);
+            await taskService.remove(id);
             store.dispatch(fetchPStore());
             store.dispatch(createNotif('Successfully Deleted'));
         } catch (err) {

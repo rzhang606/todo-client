@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import People from './components/People'
+import TaskList from './components/TaskList'
 import Notification from './components/Notification'
 import Error from './components/Error'
 import LoginForm from './components/LoginForm'
 import TaskForm from './components/TaskForm'
 
-import personService from './services/Persons'
+import taskService from './services/Tasks'
 import loginService from './services/Login'
 
 import store from './reducers/store';
-import { fetchPStore } from './reducers/personReducer'
+import { fetchPStore } from './reducers/taskReducer'
 import { createErrAction } from './reducers/errorReducer';
 import { createNotif } from './reducers/notifReducer';
 
@@ -29,7 +29,7 @@ const App = () => {
             window.localStorage.setItem(
                 'loggedPersonUser', JSON.stringify(user)
             );
-            personService.setToken(user.token);
+            taskService.setToken(user.token);
             setUser(user);
             store.dispatch(createNotif(`Logged in as ${user.name}`));
         } catch (ex) {
@@ -40,7 +40,7 @@ const App = () => {
     }
     const logOut = () => {
         window.localStorage.removeItem('loggedPersonUser');
-        personService.setToken(null);
+        taskService.setToken(null);
         setUser(null);
         store.dispatch(createNotif('Logged Out'));
     }
@@ -61,7 +61,7 @@ const App = () => {
             const user = JSON.parse(loggedUserJSON);
             setUser(user);
             store.dispatch(createNotif(`Logged in as ${user.name}`));
-            personService.setToken(user.token)
+            taskService.setToken(user.token)
         }
     }, [])
 
@@ -80,7 +80,7 @@ const App = () => {
                     <TaskForm user={user}/>
                     <Button onClick={logOut}>Log Out</Button>
                     <h2>Numbers</h2>
-                    <People persons={store.getState().tasks}/>
+                    <TaskList tasks={store.getState().tasks}/>
                 </div>}
         </div>
     )
