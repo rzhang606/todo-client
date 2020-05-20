@@ -9,47 +9,32 @@ import { fetchPStore } from '../reducers/personReducer';
  * Event Handlers
  */
 export const publishPerson = async (nPerson) => {
-    const people = store.getState().people;
-    const duplicate = people.filter(person => person.name === nPerson.name);
+    const tasks = store.getState().tasks;
+    const duplicate = tasks.filter(person => person.title === nPerson.title);
     if(duplicate.length !== 0) { //if record exists
-        if(duplicate[0].number === nPerson.number) { //duplicate
-            store.dispatch(createErrAction(`${nPerson.name} is already added to phonebook.`));
-        } else { //update number
-            const confirmation = window.confirm(`Update ${nPerson.name}'s number with ${nPerson.number}?`);
-            if(confirmation) {
-                console.log('Updating new number');
-                try{
-                    const r = await personService.update(duplicate[0].id, nPerson);
-                    store.dispatch(fetchPStore());
-                    store.dispatch(createNotif(`${r.name}'s number has been updated`));
-                } catch (err) {
-                    console.log(err);
-                    store.dispatch(createErrAction(`Update unsuccessful: ${err}`));
-                }
-            }
-        }
+        store.dispatch(createErrAction(`${nPerson.title} is already added.`));
     } else {    // add new record
         try{
             const r = await personService.create(nPerson);
             store.dispatch(fetchPStore());
-            store.dispatch(createNotif(`${r.name} has been added`));
+            store.dispatch(createNotif(`${r.title} has been added`));
         } catch (err) {
             console.log(err);
-            store.dispatch(createErrAction(`${nPerson.name} could not be added: ${err}`));
+            store.dispatch(createErrAction(`${nPerson.title} could not be added: ${err}`));
         }
     }
 }
 
 export const deletePerson = async (id) => {
-    const people = store.getState().people;
+    const tasks = store.getState().tasks;
 
-    const person = people.find(element => element.id === id);
+    const person = tasks.find(element => element.id === id);
     if(!person) {
         store.dispatch(createErrAction('Does not exist'));
     }
-    const result = window.confirm(`Delete ${person.name}'s record?`);
+    const result = window.confirm(`Delete ${person.title}?`);
     if(result) {
-        console.log('Deleting: ', id, person.name);
+        console.log('Deleting: ', id, person.title);
         try {
             await personService.remove(id);
             store.dispatch(fetchPStore());

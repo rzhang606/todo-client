@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseURL = '/api/persons'; //proxy redirects (from package.json)
+const baseURL = '/api/tasks'; //proxy redirects (from package.json)
 
 let token = null;
 

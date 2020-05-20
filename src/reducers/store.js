@@ -6,7 +6,7 @@ import errorReducer from './errorReducer';
 import notifReducer from './notifReducer';
 
 const reducers = combineReducers({
-    people: personReducer,
+    tasks: personReducer,
     error: errorReducer,
     notification: notifReducer
 });

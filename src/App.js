@@ -3,7 +3,7 @@ import People from './components/People'
 import Notification from './components/Notification'
 import Error from './components/Error'
 import LoginForm from './components/LoginForm'
-import PersonForm from './components/PersonForm'
+import TaskForm from './components/TaskForm'
 
 import personService from './services/Persons'
 import loginService from './services/Login'
@@ -77,10 +77,10 @@ const App = () => {
                 </div>
                 :
                 <div>
-                    <PersonForm user={user}/>
+                    <TaskForm user={user}/>
                     <Button onClick={logOut}>Log Out</Button>
                     <h2>Numbers</h2>
-                    <People persons={store.getState().people}/>
+                    <People persons={store.getState().tasks}/>
                 </div>}
         </div>
     )
