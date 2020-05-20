@@ -17,10 +17,10 @@ const taskReducer = (state = [], action) => {
 /**
  * Action Creators
  */
-const set_action = (people) => {
+const set_action = (tasks) => {
     return {
         type: 'T_SET',
-        data: people
+        data: tasks
     }
 }
 

@@ -10,10 +10,10 @@ const reducers = combineReducers({
     error: errorReducer,
     notification: notifReducer
 });
-const personStore = createStore(
+const store = createStore(
     reducers,
     applyMiddleware(thunk)
 );
-console.log('State:', personStore.getState());
+console.log('State:', store.getState());
 
-export default personStore;
+export default store;

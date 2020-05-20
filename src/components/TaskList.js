@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Filter from './Filter';
-import { deletePerson } from '../handlers/personHandler';
+import { deleteTask } from '../handlers/taskHandler';
 
 const TaskList = ({tasks = []}) => {
     const [ filter, setNewFilter ] = useState(''); // filter
@@ -17,7 +17,7 @@ const TaskList = ({tasks = []}) => {
            {filteredTasks.map((task) =>
                 <p key={task.title}>
                     {task.title}
-                    <button onClick={() => deletePerson(task.id)}>delete</button>
+                    <button onClick={() => deleteTask(task.id)}>delete</button>
                 </p>
             )}
             <Filter input={filter} inputHandler={handleFilterChange}/>

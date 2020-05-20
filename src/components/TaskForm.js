@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import FormField from './FormField'
 import Togglable from './Togglable'
-import { publishPerson } from '../handlers/personHandler';
+import { publishTask } from '../handlers/taskHandler';
 import { Form, Button } from 'react-bootstrap'
 
 const TaskForm = ({user}) => {
@@ -13,7 +13,7 @@ const TaskForm = ({user}) => {
 
     const createTask = (event) => {
         event.preventDefault();
-        publishPerson({ 
+        publishTask({ 
             title: title,
         });
 

@@ -8,33 +8,33 @@ import { fetchPStore } from '../reducers/taskReducer';
 /**
  * Event Handlers
  */
-export const publishPerson = async (nPerson) => {
+export const publishTask = async (ntask) => {
     const tasks = store.getState().tasks;
-    const duplicate = tasks.filter(person => person.title === nPerson.title);
+    const duplicate = tasks.filter(task => task.title === ntask.title);
     if(duplicate.length !== 0) { //if record exists
-        store.dispatch(createErrAction(`${nPerson.title} is already added.`));
+        store.dispatch(createErrAction(`${ntask.title} is already added.`));
     } else {    // add new record
         try{
-            const r = await taskService.create(nPerson);
+            const r = await taskService.create(ntask);
             store.dispatch(fetchPStore());
             store.dispatch(createNotif(`${r.title} has been added`));
         } catch (err) {
             console.log(err);
-            store.dispatch(createErrAction(`${nPerson.title} could not be added: ${err}`));
+            store.dispatch(createErrAction(`${ntask.title} could not be added: ${err}`));
         }
     }
 }
 
-export const deletePerson = async (id) => {
+export const deleteTask = async (id) => {
     const tasks = store.getState().tasks;
 
-    const person = tasks.find(element => element.id === id);
-    if(!person) {
+    const task = tasks.find(element => element.id === id);
+    if(!task) {
         store.dispatch(createErrAction('Does not exist'));
     }
-    const result = window.confirm(`Delete ${person.title}?`);
+    const result = window.confirm(`Delete ${task.title}?`);
     if(result) {
-        console.log('Deleting: ', id, person.title);
+        console.log('Deleting: ', id, task.title);
         try {
             await taskService.remove(id);
             store.dispatch(fetchPStore());
