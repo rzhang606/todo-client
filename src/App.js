@@ -67,19 +67,19 @@ const App = () => {
 
     return (
         <div className='container'>
-            <h2>Phonebook</h2>
+            <h2>To Do List</h2>
             <Notification/>
             <Error/>
             {user === null ?
                 <div>
                     <LoginForm login={login} />
-                    <h2>Please log in to view numbers</h2>
+                    <h2>Please log in to view tasks</h2>
                 </div>
                 :
                 <div>
                     <TaskForm user={user}/>
                     <Button onClick={logOut}>Log Out</Button>
-                    <h2>Numbers</h2>
+                    <h2>Tasks</h2>
                     <TaskList tasks={store.getState().tasks}/>
                 </div>}
         </div>
